@@ -1,37 +1,47 @@
 from PIL import Image
-# import matplotlib.pyp lot as plt
+from scipy import fft
+import matplotlib
+
+matplotlib.use('TkAgg')
+
+import matplotlib.pyplot as plt
 import numpy as np
 
 
-def form_pixels(base, function):
-    return list(map(function, base))
-
-
-def save_new(pixels, mark, filename, size, mode='L'):
-    image = Image.new(mode, size)
-    image.putdata(pixels)
+def save_new(pixels, filename, mark):
+    image = Image.fromarray(pixels, 'L')
     image.save(mark + filename)
     return image
 
 
-def get_ffts(fft_pixels):
-    rl = form_pixels(fft_pixels, np.real)
-    im = form_pixels(fft_pixels, np.imag)
-    ab = form_pixels(fft_pixels, np.abs)
-    return ab, im, rl
+def plot_spectrum(im_fft):
+    from matplotlib.colors import LogNorm
+    # A logarithmic colormap
+    plt.imshow(np.abs(im_fft), norm=LogNorm(vmin=5))
+    plt.colorbar()
 
 
-def fft_from_numpy(filename: str):
-    img = Image.open(filename).convert('L')
-    img.save('grey_' + filename)
-    ab, im, rl = get_ffts(np.fft.fft(img.getdata()))
+def run(filename: str):
+    data = plt.imread('./samples/' + filename).astype(float)  # np.asarray(img)  # 2d pixel array
+    plt.figure()
+    plt.imshow(data, cmap='gray', vmin=0, vmax=255)
+    plt.title('Original image')
 
-    save_new(rl, 'real_fft_', filename, img.size)
-    save_new(im, 'im_fft_', filename, img.size)
-    save_new(ab, 'abs_fft_', filename, img.size)
+    new_image = fft.rfft2(data).astype(float)
+    plt.figure()
+    plt.title('Fourier transform')
+    plot_spectrum(new_image)
+    save_new(new_image, filename, './results/fft_')
+
+    inv = fft.irfft2(new_image)
+    plt.figure()
+    plt.imshow(inv, cmap='gray')
+    plt.title('Reconstructed Image')
+    plt.show()
+    save_new(inv, filename, './results/inv_fft_')
 
 
 if __name__ == '__main__':
     print('Input source file\' name here:')
-    src = input()
-    fft_from_numpy(src)
+    src = 'BRIDGE.BMP'
+    run(src)

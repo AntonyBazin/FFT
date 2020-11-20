@@ -58,6 +58,7 @@
 # BMP
 *.bmp
 *.dib
+*.BMP
 
 # ICO
 *.ico
