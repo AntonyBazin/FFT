@@ -22,12 +22,12 @@ def plot_spectrum(im_fft):
 
 
 def run(filename: str):
-    data = plt.imread('./samples/' + filename).astype(float)  # np.asarray(img)  # 2d pixel array
+    data = plt.imread('./samples/' + filename) # np.asarray(img)  # 2d pixel array
     plt.figure()
-    plt.imshow(data, cmap='gray', vmin=0, vmax=255)
+    plt.imshow(data, cmap='gray')
     plt.title('Original image')
 
-    new_image = fft.rfft2(data).astype(float)
+    new_image = fft.rfft2(data)
     plt.figure()
     plt.title('Fourier transform')
     plot_spectrum(new_image)
