@@ -24,7 +24,9 @@ class Transformer:
         self.plot('Reconstructed image',
                   'gray',
                   False)
-        self.plot()
+        plt.figure()
+        plt.axis('off')
+        plt.imshow(self._plotting, cmap='gray')
         plt.savefig('./buffer/reconstructed_' + self.file + '.jpg',
                     bbox_inches='tight',
                     pad_inches=0)
