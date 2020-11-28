@@ -14,16 +14,19 @@ class Transformer:
 
     def run(self):
         self.prepare()
+        self.plot('Original image')
         self.transform()
+        self.plot_fft('Pure FT', './results/pure_fft_')
+        self.shift()
+        self.plot_fft('FT with FFTShift', './results/shifted_fft_')
         self.inverse()
-        plt.show()
-
-    def inverse(self):
-        self._data = fft.ifft2(self._data)
-        self._plotting = np.abs(self._data)
         self.plot('Reconstructed image',
                   'gray',
                   False)
+        self.__save()
+        plt.show()
+
+    def __save(self):
         plt.figure()
         plt.axis('off')
         plt.imshow(self._plotting, cmap='gray')
@@ -31,20 +34,17 @@ class Transformer:
                     bbox_inches='tight',
                     pad_inches=0)
 
+    def inverse(self):
+        self._data = fft.ifft2(self._data)
+        self._plotting = np.abs(self._data)
+
+    def shift(self):
+        self._plotting = np.abs(np.fft.fftshift(self._data))
+
     def transform(self):
         self._data = fft.fft2(self._data)  # may also use real fft here, but it will only give a half of the image
         self._plotting = np.abs(self._data)
-        self.plot('Pure FT of ' + self.file,
-                  'gray',
-                  True,
-                  './results/pure_fft_',
-                  norm=LogNorm(vmin=1))
-        self._plotting = np.abs(np.fft.fftshift(self._data))
-        self.plot('FT of ' + self.file + ' with FFTShift',
-                  'gray',
-                  True,
-                  './results/shifted_fft_',
-                  norm=LogNorm(vmin=1))
+        return self
 
     def prepare(self):
         grayscale_image = Image.open('./samples/' + self.file).convert('L')
@@ -52,7 +52,13 @@ class Transformer:
 
         self._data = plt.imread('./buffer/gray_' + self.file)
         self._plotting = self._data
-        self.plot('Original image')
+
+    def plot_fft(self, name, address=''):
+        self.plot(name + ' of ' + self.file,
+                  'gray',
+                  True,
+                  address,
+                  norm=LogNorm(vmin=1))
 
     def plot(self, title='', colormap='gray', bar=False, save='', **kwargs):
         plt.figure()
