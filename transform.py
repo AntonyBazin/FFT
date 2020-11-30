@@ -13,7 +13,6 @@ class Transformer:
         grayscale_image.save('./buffer/gray_' + self.file)
         self._data = plt.imread('./buffer/gray_' + self.file)
         self._plotting = self._data
-        self.flag = 'down'
 
     @staticmethod
     def show_all():
@@ -50,7 +49,6 @@ class Transformer:
     def transform(self):
         self._data = fft.fft2(self._data)  # may also use real fft here, but it will only give a half of the image
         self._plotting = np.abs(self._data)
-        self.flag = 'up'
         return self
 
     def plot_fft(self, name, address=''):
