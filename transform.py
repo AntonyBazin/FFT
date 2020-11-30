@@ -9,15 +9,16 @@ class Transformer:
     def __init__(self, filename: str):
         self.file = filename
         self.name = filename[:-3]
-        self._data = None
-        self._plotting = None
+        grayscale_image = Image.open('./samples/' + self.file).convert('L')
+        grayscale_image.save('./buffer/gray_' + self.file)
+        self._data = plt.imread('./buffer/gray_' + self.file)
+        self._plotting = self._data
 
     @staticmethod
     def show_all():
         plt.show()
 
     def run(self):
-        self.prepare()
         self.plot('Original image')
         self.transform()
         self.plot_fft('Pure FT', './results/pure_fft_')
@@ -27,10 +28,10 @@ class Transformer:
         self.plot('Reconstructed image',
                   'gray',
                   False)
-        self.__save()
+        self.save()
         plt.show()
 
-    def __save(self):
+    def save(self):
         plt.figure()
         plt.axis('off')
         plt.imshow(self._plotting, cmap='gray')
@@ -49,13 +50,6 @@ class Transformer:
         self._data = fft.fft2(self._data)  # may also use real fft here, but it will only give a half of the image
         self._plotting = np.abs(self._data)
         return self
-
-    def prepare(self):
-        grayscale_image = Image.open('./samples/' + self.file).convert('L')
-        grayscale_image.save('./buffer/gray_' + self.file)
-
-        self._data = plt.imread('./buffer/gray_' + self.file)
-        self._plotting = self._data
 
     def plot_fft(self, name, address=''):
         self.plot(name + ' of ' + self.file,

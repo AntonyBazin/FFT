@@ -6,8 +6,6 @@ if __name__ == '__main__':
     # for tank, plane in zip(tanks, planes):
     #     tank_tr = Transformer(tank)
     #     plane_tr = Transformer(plane)
-    #     tank_tr.prepare()
-    #     plane_tr.prepare()
     #     tank_tr.transform().shift()
     #     plane_tr.transform().shift()
     #     tank_tr.plot_fft(tank)
@@ -15,11 +13,9 @@ if __name__ == '__main__':
     shapes = ['round.jpg', 'square.png', 'triangle.png']
     # for sh in shapes:
     #     trans = Transformer(sh)
-    #     trans.prepare()
     #     trans.transform().shift()
     #     trans.plot_fft(sh)
     tr = Transformer('mas2.jpg')
-    tr.prepare()
     lol = tr.transform()
     lol.plot_fft('1st FT')
     lol.shift()
