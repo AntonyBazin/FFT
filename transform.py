@@ -12,6 +12,10 @@ class Transformer:
         self._data = None
         self._plotting = None
 
+    @staticmethod
+    def show_all():
+        plt.show()
+
     def run(self):
         self.prepare()
         self.plot('Original image')
