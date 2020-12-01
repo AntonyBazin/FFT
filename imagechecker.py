@@ -15,7 +15,7 @@ if __name__ == '__main__':
     #     trans = Transformer(sh)
     #     trans.transform().shift()
     #     trans.plot_fft(sh)
-    tr = Transformer('mas2.jpg')
+    tr = Transformer('square.png')
     lol = tr.transform()
     lol.plot_fft('1st FT')
     lol.shift()

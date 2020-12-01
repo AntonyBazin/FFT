@@ -18,8 +18,17 @@ class Denoiser(Transformer):
 
     def inverse(self): Denoiser.method_disabled()
 
-    def run(self):
-        self.filter_spectrum()
+    def filter_many_times(self, fractions: list):
+        super().transform()
+        _data_copy = self._data.copy()
+        for i, fraction in enumerate(fractions):
+            self._data = _data_copy.copy()
+            self._data[int(self.r * fraction):int(self.r * (1 - fraction))] = 0
+            self._data[:, int(self.c * fraction):int(self.c * (1 - fraction))] = 0
+            super().inverse()
+            self.plot(str(i + 1) + ') Reconstruction from ' + str(fraction),
+                      'gray',
+                      False)
 
     def filter_spectrum(self):
         super().transform()
@@ -34,12 +43,8 @@ class Denoiser(Transformer):
 
 
 if __name__ == '__main__':
-    dn1 = Denoiser('noise_city.jpg')
-    dn1.run()
-    dn2 = Denoiser('noise_city.jpg', 0.07)
-    dn2.run()
-    # dn3 = Denoiser('noise_city.jpg', 0.2)
-    # dn3.run()
-    # dn4 = Denoiser('noise_city.jpg', 0.05)
-    # dn4.run()
+    # dn = Denoiser('noise_city.jpg')
+    # dn.filter_many_times([0.07, 0.08, 0.09, 0.1, 0.11, 0.15])
+    dn2 = Denoiser('moonlanding.png')
+    dn2.filter_many_times([0.07, 0.08, 0.09, 0.1, 0.11, 0.15])
     Transformer.show_all()
