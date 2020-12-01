@@ -4,7 +4,9 @@ if __name__ == '__main__':
     shapes = ['round.jpg', 'square.png', 'triangle.png']
     for sh in shapes:
         trans = Transformer(sh)
-        trans.transform().shift()
+        trans.transform()
+        trans.plot_fft('FT of')
+        trans.shift()
         trans.plot_fft('Shifted FT of')
     Transformer.show_all()
 
@@ -24,11 +26,11 @@ if __name__ == '__main__':
     tr.plot('Original vase')
     tr2.plot('Original face')
     tr.transform()
-    tr.plot_fft('Vase')
+    tr.plot_fft('FT')
     tr2.transform()
-    tr2.plot_fft('Face')
+    tr2.plot_fft('FT')
     tr.shift()
-    tr.plot_fft('Shifted Vase')
+    tr.plot_fft('Shifted FT')
     tr2.shift()
-    tr2.plot_fft('Shifted Face')
+    tr2.plot_fft('Shifted FT')
     Transformer.show_all()

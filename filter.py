@@ -3,9 +3,9 @@ import numpy as np
 
 
 class Filter(Transformer):
-    def __init__(self, filename: str, frac=0.1):
+    def __init__(self, filename: str, fraction=0.1):
         super().__init__(filename)
-        self.fraction = frac
+        self.fraction = fraction
         self.r, self.c = self._data.shape
 
     @staticmethod

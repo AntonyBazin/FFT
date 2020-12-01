@@ -1,12 +1,13 @@
 import filter as fl
 
 if __name__ == '__main__':
+    # example input : moonlanding.png; 0.1
     print('Input source file\'s name here:')
     src = input()
     print('Input the fraction to filter, default is 0.1:')
     fraction = input()
     if not fraction:
-        fraction = 0
+        fraction = 0.1
     else:
         fraction = float(fraction)
     try:
