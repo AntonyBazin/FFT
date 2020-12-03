@@ -16,3 +16,5 @@ or
 gnuplot --persist -e 'set logscale x; plot "timing-fft.txt" using 1:2 with linespoints'
 ```
 to plot the timing diagrams.
+
+[More about gnuplot](http://www.gnuplot.info/ "gnuplot homepage")
