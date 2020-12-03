@@ -6,7 +6,13 @@ import numpy as np
 
 
 class Transformer:
+    """The Transformer class provides the interface for working with FFT"""
     def __init__(self, filename: str):
+        """
+        The class encapsulates the given file's name,
+        its contents and everything needed for plotting the results
+        :param filename: The name of the file the class is going to work on
+        """
         self.file = filename
         self.name = filename[:-3]
         grayscale_image = Image.open('./samples/' + self.file).convert('L')
@@ -16,14 +22,18 @@ class Transformer:
 
     @staticmethod
     def show_all():
+        """Use this method to show all plots"""
         plt.show()
 
     def run(self):
+        """This method is a simple variant of converting an image
+        into the frequency spectrum via FFT, converting it back,
+        plotting all the output and save all the results"""
         self.plot('Original image')
         self.transform()
-        self.plot_fft('Pure FT', './results/pure_fft_')
+        self.plot_fft('Pure FT', './results/pure_ft_')
         self.shift()
-        self.plot_fft('FT with FFTShift', './results/shifted_fft_')
+        self.plot_fft('FT with FFTShift', './results/shifted_ft_')
         self.inverse()
         self.plot('Reconstructed image',
                   'gray',
@@ -32,6 +42,7 @@ class Transformer:
         plt.show()
 
     def save(self):
+        """This method saves the image at it's current state"""
         plt.figure()
         plt.axis('off')
         plt.imshow(self._plotting, cmap='gray')
@@ -40,18 +51,23 @@ class Transformer:
                     pad_inches=0)
 
     def inverse(self):
+        """This method is used to make an inverse FFT of the current image"""
         self._data = fft.ifft2(self._data)
         self._plotting = np.abs(self._data)
 
     def shift(self):
+        """This method shifts the image mean (the zero-frequency component)
+         towards the center of the image"""
         self._plotting = np.abs(np.fft.fftshift(self._data))
 
     def transform(self):
+        """The main method of the class, performs the FFT of the current image"""
         self._data = fft.fft2(self._data)  # may also use real fft here, but it will only give a half of the image
         self._plotting = np.abs(self._data)
         return self
 
     def plot_fft(self, name, address=''):
+        """A special method to specifically plot Fourier transforms"""
         self.plot(name + ' of ' + self.file,
                   'gray',
                   True,
@@ -59,6 +75,7 @@ class Transformer:
                   norm=LogNorm(vmin=1))
 
     def plot(self, title='', colormap='gray', bar=False, save='', **kwargs):
+        """This method is used for plotting image in its current state"""
         plt.figure()
         plt.title(title)
         if kwargs:
