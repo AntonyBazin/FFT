@@ -31,6 +31,8 @@ class Filter(Transformer):
     def series_lpf(self, fractions: list):
         """This method can be used for convenience when denoising images"""
         super().transform()
+        self.shift()
+        self.plot_fft('FT of')
         _data_copy = self._data.copy()
         for i, fraction in enumerate(fractions):
             self._data = _data_copy.copy()
