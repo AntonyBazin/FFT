@@ -58,7 +58,7 @@ class Transformer:
     def shift(self):
         """This method shifts the image mean (the zero-frequency component)
          towards the center of the image"""
-        self._plotting = np.abs(np.fft.fftshift(self._data))
+        self._plotting = np.abs(fft.fftshift(self._data))
 
     def transform(self):
         """The main method of the class, performs the FFT of the current image"""
