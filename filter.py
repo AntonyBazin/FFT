@@ -5,9 +5,9 @@ import numpy as np
 class Filter(Transformer):
     """The Filter class is used for filtering images via removing
     some parts of their Fourier transform. If the low pass filter is used,
-    only the low frequences of the transform are conserved,
+    only the low frequencies of the transform are conserved,
     leading to blurring the image but also removing some periodic noises
-    The high pass filter, on the contrary, conserves the high frequences,
+    The high pass filter, on the contrary, conserves the high frequencies,
     detecting the edges of the image.
     """
     def __init__(self, filename: str, fraction=0.1):
@@ -29,7 +29,7 @@ class Filter(Transformer):
     def inverse(self): Filter.method_disabled()
 
     def series_lpf(self, fractions: list):
-        """This method can be used for conveniance when denoising images"""
+        """This method can be used for convenience when denoising images"""
         super().transform()
         _data_copy = self._data.copy()
         for i, fraction in enumerate(fractions):
