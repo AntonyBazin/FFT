@@ -19,7 +19,7 @@ if __name__ == '__main__':
     with open('timing-shift.txt', 'w') as out:
         out.write('# number TIME\n')
     transformers = [screwdriver, vase, city, round_tr, dew, fire]
-    sizes = [768, 128000, 317856, 640000, 9838080, 17185645]
+    sizes = [76800, 128000, 317856, 640000, 9838080, 17185645]
     for size, transformer in zip(sizes, transformers):
         start = time.time()
         transformer.transform()
