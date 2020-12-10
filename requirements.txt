@@ -1,5 +1,5 @@
 numpy==1.19.3; platform_system == "Windows"
-numpy>=1.19.4; platform_system == "linux"
+numpy>=1.19.4; platform_system == "Linux"
 matplotlib~=3.3.3
 Pillow~=8.0.1
 scipy~=1.5.4
