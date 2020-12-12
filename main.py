@@ -6,7 +6,9 @@ import tkinter as tk
 
 
 class Application(tk.Frame):
+    """The Application class provides the GUI for working with FFT"""
     def __init__(self, master=None):
+        """The constructor of the class objects, initializes items on the window"""
         super().__init__(master)
         self.master = master
         self.pack()
@@ -58,10 +60,12 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        """Creates the widgets"""
         for item in self.items:
             item.pack()
 
     def run_transform(self):
+        """Runs the basic FFT demonstration"""
         name = self.box.get()
         try:
             worker = Transformer(name)
@@ -70,6 +74,7 @@ class Application(tk.Frame):
             print(er)
 
     def run_filter(self):
+        """Runs the filter class work demonstration"""
         name = self.box.get()
         try:
             fraction = float(self.fracbox.get())
@@ -84,6 +89,7 @@ class Application(tk.Frame):
             print(er)
 
     def run_list_filter(self):
+        """Runs filtering the image with many fraction parameters"""
         name = self.box.get()
         try:
             fractions = self.many_fractions.get().split()
@@ -97,6 +103,7 @@ class Application(tk.Frame):
 
     @staticmethod
     def run_show_primitives():
+        """Demonstrates the FT images of primitive forms"""
         shapes = ['round.jpg', 'square.png', 'triangle.png']
         for sh in shapes:
             trans = Transformer(sh)
@@ -107,6 +114,7 @@ class Application(tk.Frame):
 
     @staticmethod
     def run_comp():
+        """Demonstrates the FT images of complex forms"""
         tr = Transformer('vase.jpg')
         tr2 = Transformer('face.jpg')
         tr.plot('Original vase')
@@ -123,6 +131,7 @@ class Application(tk.Frame):
 
     @staticmethod
     def run_timing():
+        """Runs a timing analysis of the FTT algorithm"""
         try:
             screwdriver = Transformer('6A(142).BMP')  # 320x240 = 76800 p
             vase = Transformer('vase.jpg')  # 320x400 = 128000 p
@@ -135,8 +144,6 @@ class Application(tk.Frame):
             sys.exit()
         with open('timing-fft.txt', 'w') as out:
             out.write('# number TIME\n')
-        with open('timing-shift.txt', 'w') as out:
-            out.write('# number TIME\n')
         transformers = [screwdriver, vase, city, round_tr, dew, fire]
         sizes = [76800, 128000, 317856, 640000, 9838080, 17185645]
         for size, transformer in zip(sizes, transformers):
@@ -148,7 +155,8 @@ class Application(tk.Frame):
         print('Timing completed successfully')
 
 
-root = tk.Tk()
-root.geometry('450x400')
-app = Application(master=root)
-app.mainloop()
+if __name__ == '__main__':
+    root = tk.Tk()
+    root.geometry('450x400')
+    app = Application(master=root)
+    app.mainloop()

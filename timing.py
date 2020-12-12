@@ -16,8 +16,6 @@ if __name__ == '__main__':
         sys.exit()
     with open('timing-fft.txt', 'w') as out:
         out.write('# number TIME\n')
-    with open('timing-shift.txt', 'w') as out:
-        out.write('# number TIME\n')
     transformers = [screwdriver, vase, city, round_tr, dew, fire]
     sizes = [76800, 128000, 317856, 640000, 9838080, 17185645]
     for size, transformer in zip(sizes, transformers):
