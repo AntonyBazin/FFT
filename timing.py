@@ -26,9 +26,3 @@ if __name__ == '__main__':
         end = time.time()
         with open('timing-fft.txt', 'a') as log:
             log.write(str(size) + ' ' + str(end - start) + '\n')
-    for size, transformer in zip(sizes, transformers):
-        start = time.time()
-        transformer.shift()
-        end = time.time()
-        with open('timing-shift.txt', 'a') as log:
-            log.write(str(size) + ' ' + str(end - start) + '\n')
