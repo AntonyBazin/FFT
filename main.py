@@ -15,30 +15,40 @@ class Application(tk.Frame):
         master.title('Main dialog')
 
         no_file_label = tk.Label(self, text='No input is needed to run these:')
-        run_show_primitives = tk.Button(self, text='Run primitives transform',
+        run_show_primitives = tk.Button(self,
+                                        text='Run primitives transform',
                                         command=self.run_show_primitives)
-        run_comp = tk.Button(self, text='Run face and vase spectra comparison',
-                                        command=self.run_comp)
-        run_timing_button = tk.Button(self, text='Run timing',
+        run_comp = tk.Button(self,
+                             text='Run face and vase spectra comparison',
+                             command=self.run_comp)
+        run_timing_button = tk.Button(self,
+                                      text='Run timing',
                                       command=self.run_timing)
 
-        file_label = tk.Label(self, text='Functions below need a file to work on:')
-        self.box = tk.Entry(self, textvariable=tk.StringVar)
+        file_label = tk.Label(self,
+                              text='Functions below need a file to work on:')
+        self.box = tk.Entry(self,
+                            textvariable=tk.StringVar)
         self.box.insert(0, 'File\'s name')
-        run_transform_button = tk.Button(self, text='Run fft and inverse fft',
+        run_transform_button = tk.Button(self,
+                                         text='Run fft and inverse fft',
                                          command=self.run_transform)
         file_and_frac_label = tk.Label(self,
                                        text='Different filters function needs a fraction to work with:')
-        self.fracbox = tk.Entry(self, textvariable=tk.StringVar)
+        self.fracbox = tk.Entry(self,
+                                textvariable=tk.StringVar)
         self.fracbox.insert(0, '0.1')
-        run_filter_button = tk.Button(self, text='Run different filters',
+        run_filter_button = tk.Button(self,
+                                      text='Run different filters',
                                       command=self.run_filter)
 
         fraction_list_label = tk.Label(self,
                                        text='Filtering with many fractions requires a list to work with:')
-        self.many_fractions = tk.Entry(self, textvariable=tk.StringVar)
+        self.many_fractions = tk.Entry(self,
+                                       textvariable=tk.StringVar)
         self.many_fractions.insert(0, '0.05 0.07 0.1 0.2 0.3')
-        run_list_filter_button = tk.Button(self, text='Run filter with list',
+        run_list_filter_button = tk.Button(self,
+                                           text='Run filter with list',
                                            command=self.run_list_filter)
 
         quit_button = tk.Button(self, text="QUIT", fg="red",
