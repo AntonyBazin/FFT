@@ -155,6 +155,6 @@ class Application(tk.Frame):
 
 
 root = tk.Tk()
-root.geometry('500x500')
+root.geometry('450x400')
 app = Application(master=root)
 app.mainloop()
