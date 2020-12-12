@@ -120,7 +120,7 @@ class Application(tk.Frame):
             print(er)
 
     @staticmethod
-    def run_show_primitives(self):
+    def run_show_primitives():
         """Demonstrates the FT images of primitive forms"""
         transformers = [Transformer('round.jpg'), Transformer('square.png'), Transformer('triangle.png')]
         for trans in transformers:
@@ -133,7 +133,7 @@ class Application(tk.Frame):
         gc.collect()
 
     @staticmethod
-    def run_comp(self):
+    def run_comp():
         """Demonstrates the FT images of complex forms"""
         tr = Transformer('vase.jpg')
         tr2 = Transformer('face.jpg')
@@ -152,7 +152,7 @@ class Application(tk.Frame):
         gc.collect()
 
     @staticmethod
-    def run_timing(self):
+    def run_timing():
         """Runs a timing analysis of the FTT algorithm"""
         try:
             screwdriver = Transformer('6A(142).BMP')  # 320x240 = 76800 p
