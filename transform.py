@@ -20,10 +20,13 @@ class Transformer:
         self._data = plt.imread('./buffer/gray_' + self.file)
         self._plotting = self._data
 
+    def __del__(self):
+        del self._data, self._plotting, self.name, self.file
+
     @staticmethod
     def show_all():
         """Use this method to show all plots"""
-        plt.show()
+        plt.show(block=False)
 
     def run(self):
         """This method is a simple variant of converting an image
@@ -39,7 +42,7 @@ class Transformer:
                   'gray',
                   False)
         self.save()
-        plt.show()
+        plt.show(block=False)
 
     def save(self):
         """This method saves the image at it's current state"""

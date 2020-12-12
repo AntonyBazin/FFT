@@ -3,10 +3,12 @@ from transform import Transformer
 import time
 import sys
 import tkinter as tk
+import gc
 
 
 class Application(tk.Frame):
     """The Application class provides the GUI for working with FFT"""
+
     def __init__(self, master=None):
         """The constructor of the class objects, initializes items on the window"""
         super().__init__(master)
@@ -80,6 +82,8 @@ class Application(tk.Frame):
         try:
             worker = Transformer(name)
             worker.run()
+            del worker, name
+            gc.collect()
         except FileNotFoundError as er:
             print(er)
 
@@ -95,6 +99,8 @@ class Application(tk.Frame):
             fl2 = fl.Filter(name, fraction)
             fl2.high_pass_filter()
             Transformer.show_all()
+            del fl1, fl2, name
+            gc.collect()
         except Exception as er:
             print(er)
 
@@ -108,22 +114,26 @@ class Application(tk.Frame):
             fil.plot(name)
             fil.series_lpf(fractions)
             fl.Transformer.show_all()
+            del fil, name
+            gc.collect()
         except Exception as er:
             print(er)
 
     @staticmethod
-    def run_show_primitives():
+    def run_show_primitives(self):
         """Demonstrates the FT images of primitive forms"""
-        shapes = ['round.jpg', 'square.png', 'triangle.png']
-        for sh in shapes:
-            trans = Transformer(sh)
+        transformers = [Transformer('round.jpg'), Transformer('square.png'), Transformer('triangle.png')]
+        for trans in transformers:
             trans.plot()
             trans.transform().shift()
             trans.plot_fft('Shifted FT of')
         Transformer.show_all()
+        transformers.clear()
+        del transformers
+        gc.collect()
 
     @staticmethod
-    def run_comp():
+    def run_comp(self):
         """Demonstrates the FT images of complex forms"""
         tr = Transformer('vase.jpg')
         tr2 = Transformer('face.jpg')
@@ -138,9 +148,11 @@ class Application(tk.Frame):
         tr2.shift()
         tr2.plot_fft('Shifted FT')
         Transformer.show_all()
+        del tr, tr2
+        gc.collect()
 
     @staticmethod
-    def run_timing():
+    def run_timing(self):
         """Runs a timing analysis of the FTT algorithm"""
         try:
             screwdriver = Transformer('6A(142).BMP')  # 320x240 = 76800 p
@@ -162,6 +174,8 @@ class Application(tk.Frame):
             end = time.time()
             with open('timing-fft.txt', 'a') as log:
                 log.write(str(size) + ' ' + str(end - start) + '\n')
+        transformers.clear()
+        gc.collect()
         print('Timing completed successfully')
 
 
